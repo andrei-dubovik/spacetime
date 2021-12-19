@@ -1,0 +1,41 @@
+* TODO Learn General Relativity                                      :Andrei:
+* TODO A Simple Clock
+  - [X] An FSP counter (you need an FPS counter to see your FPS)
+  - [ ] Check FPS for a smooth second hand
+    - [ ] Second hand is a part of a clock svg
+    - [ ] Second hand is a separate svg
+    - [ ] If FPS is low, consider canvas
+  - [ ] SVG clock
+    - [ ] Dial
+    - [ ] Minute hand
+    - [ ] Second hand
+  - [ ] Animation
+  - [ ] Recheck FPS and CPU utilization with a dozen clocks or so
+    - [ ] Firefox
+    - [ ] Chrome
+    - [ ] Safari
+    - [ ] CPU only (i.e. no GPU acceleration)
+* TODO Interface Sketch
+  - Considerations
+    - Ship's reference frame PoV
+    - Rotation is fixed
+    - Point and click sets ship's destination
+    - No change of direction mid-flight (in the first version)
+    - Tin-can spaceship design
+    - Spaceship Dashboard (on a side)
+      - Ship's own clock (i.e. eigenzeit)
+      - Speed, acceleration
+    - Game dashboard (say, under the spaceship dashboard)
+      - FPS
+      - Co-op latency
+* TODO Interface Implementation
+  - Mobile-compatible from the start
+* TODO Physics Engine
+* TODO Co-op Play
+  - via WebRTC
+* Questions
+  - Planets can be shown where they are now (presumably), or where
+    they were when the light started its journey from them towards the
+    ship. The ship from the co-op player must be shown where it was,
+    because it has an uncertain itinerary. So, what choice for the
+    planets?
