@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <meta charset="UTF-8">
+    </header>
+
+    <script>
+        "use strict"
+
+        function mainLoop () {
+            let fps = 0;
+            let timer = Math.floor(Date.now()/1000);
+            let fpsHtml = document.getElementById("fpsCounter");
+            setInterval(function() {
+                fps += 1;
+                let now = Math.floor(Date.now()/1000);
+                if (now > timer) {
+                    fpsHtml.innerHTML = fps + " FPS";
+                    timer = now;
+                    fps = 0;
+                }
+            }, 1);
+        }
+    </script>
+
+    <body onload="mainLoop()">
+        <div id="fpsCounter" style="position: fixed; right: 0px; margin-right: 5px">0 FPS</div>
+    </body>
+
+</html>
