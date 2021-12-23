@@ -7,23 +7,35 @@
     <script>
         "use strict"
 
-        function mainLoop () {
-            let fps = 0;
-            let timer = Math.floor(Date.now()/1000);
-            let fpsHtml = document.getElementById("fpsCounter");
-            setInterval(function() {
-                fps += 1;
-                let now = Math.floor(Date.now()/1000);
-                if (now > timer) {
-                    fpsHtml.innerHTML = fps + " FPS";
-                    timer = now;
-                    fps = 0;
-                }
-            }, 1);
+        function showFPS(state) {
+            state.fps += 1;
+            let now = Math.floor(Date.now()/1000);
+            if (now > state.timer) {
+                let counter = document.getElementById("fpsCounter");
+                counter.innerHTML = state.fps/(now - state.timer) + " FPS";
+                state.fps = 0;
+                state.timer = now;
+            }
         }
+
+        function drawFrame(timestamp, prevTimestamp, state) {
+            // let dt = timestamp - prevTimestamp;
+            showFPS(state);
+            window.requestAnimationFrame(ts => drawFrame(ts, timestamp, state));
+        }
+
+        function init() {
+            let state = {
+                fps: 0,
+                timer: Math.floor(Date.now()/1000),
+            };
+            window.requestAnimationFrame(ts => drawFrame(ts, 0, state));
+        }
+
+        window.onload = init;
     </script>
 
-    <body onload="mainLoop()">
+    <body>
         <div id="fpsCounter" style="position: fixed; right: 0px; margin-right: 5px">0 FPS</div>
     </body>
 
