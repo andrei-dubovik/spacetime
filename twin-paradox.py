@@ -95,7 +95,7 @@ if GRAPH:
 # https://fenix.tecnico.ulisboa.pt/downloadFile/1407770020544755/resumo.pdf
 if ACCEL == 'hyperbolic2':
     T = t[-1]
-    zeta = a0*T
+    zeta = a[0]*T
     t_f = (
         + T/zeta*np.arcsinh(zeta*t/T)*(t <= 10)
         + (T/zeta*np.arcsinh(zeta*(t/T - 0.5)) + 2*T/zeta*np.arcsinh(zeta/4))*(t > 10)*(t <= 30)
