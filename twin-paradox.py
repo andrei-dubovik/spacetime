@@ -79,12 +79,16 @@ dt_, dx_ = lorentz(mv, dt, dx)
 assert np.all(np.abs(dx_) < 1e-14)  # for N == 1000
 t_ = np.hstack(([0], np.cumsum(dt_)))
 
+# Alternatively, we can compute t_ from spacetime interval invariance
+t_inv = np.hstack(([0], np.cumsum(np.sqrt(dt**2 - dx**2))))
+
 if GRAPH:
     fig, axis = plt.subplots()
     axis.set_title("Time on the ship (Earth reference frame)")
     axis.set_xlabel("Earth time")
     axis.axline([0, 0], [1, 1], c="lightgray")
-    axis.plot(t, t_)
+    axis.plot(t, t_, label="lorentz")
+    axis.plot(t, t_, color="red", label="st int inv")
     fig.show()
 
 # For no-coasting proper constant acceleration I've found formulas online:
@@ -128,6 +132,52 @@ t__ = t - v*x
 assert abs((t[-1] - t_[-1]) - (t__[-1] - t_[-1])) < 1e-3  # for N == 1000
 
 # Note: I couldn't really find any formulas online to double check t__
+
+# The above solution is a bit specific. A more general solutions is as follows.
+# We consider the simultaneity plane of the ship, and search for its
+# intersection with the Earth's worldine, parametrized by lambda. In case of a
+# single spatial dimension, it's a 3x3 system, and in case of two spatial
+# dimensions, it's a 4x4 system. The intersection point gives us the distance
+# to Earth as seen by the ship, as well as the "now" time on Earth (when we
+# translate the point to the Earth's coordinate system).
+
+# (There is some unnecessary numpy Kung Fu in what follows, because we solve N
+# linear equations in one go. A loop would have been easier to write,
+# easier to read, and also more efficient.)
+
+# Earth wordline at moment i in an Earth's reference frame but shifted to
+# ship's location, xx(lambda) = q[i]*lambda + b[i], where xx = (t, x)
+e1 = np.repeat(1, N)
+e0 = np.repeat(0, N)
+q = np.moveaxis(np.array([[e1], [e0]]), -1, 0)
+b = np.moveaxis(np.array([[e0], [-x]]), -1, 0)
+
+# Ship's simultaneity plane in ship's reference frame, i.e. t' == 0. For any
+# plane passing through origin we have d @ xx' == 0. In our case, d[i] = [1 0].
+d = np.moveaxis(np.array([e1, e0]), -1, 0)[:,None,:]
+
+# Lorentz matrices
+g = 1/np.sqrt(1 - v**2)
+L = np.moveaxis(np.array([[g, -g*v], [-g*v, g]]), -1, 0)
+
+# Now we put all the matrices together and solve for the intersection of Earth
+# worldine and ship simultaneity plane (in ship's reference frame), for all i.
+A = np.block([[np.tile(np.eye(2), [N,1,1]), -L@q], [d, e0[:,None,None]]])
+B = np.block([[L@b], [e0[:,None,None]]])
+z_ = np.linalg.solve(A, B)  # [t' === 0, x', lambda]
+
+# If we translate the coordinates back to the Earth frame, we get the time and
+# location on Earth
+z = np.linalg.solve(L, z_[:,:2,:]) + np.moveaxis(np.array([[t], [x]]), -1, 0)
+#   ------------------------------   ----------------------------------------
+#              rotation                            translation
+
+# Both the specific and the general methods should give the same anwer
+assert np.max(np.abs(-z_[:,1,0] - x_)) < 1e-14  # for N == 1000
+assert np.max(np.abs(z[:,0,0] - t__)) < 1e-14  # for N == 1000
+
+# Furthemore, Earth location according to Earth should be 0
+assert np.max(np.abs(z[:,1,0] - 0)) < 1e-14
 
 if GRAPH:
     fig, axis = plt.subplots()
