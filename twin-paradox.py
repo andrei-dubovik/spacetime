@@ -88,7 +88,7 @@ if GRAPH:
     axis.set_xlabel("Earth time")
     axis.axline([0, 0], [1, 1], c="lightgray")
     axis.plot(t, t_, label="lorentz")
-    axis.plot(t, t_, color="red", label="st int inv")
+    axis.plot(t, t_, color="pink", label="st int inv", ls=(0, (5, 5)))
     fig.show()
 
 # For no-coasting proper constant acceleration I've found formulas online:
@@ -109,7 +109,7 @@ if ACCEL == 'hyperbolic2':
         axis.set_xlabel("Earth time")
         axis.axline([0, 0], [1, 1], c="lightgray")
         axis.plot(t, t_, label="numeric")
-        axis.plot(t, t_f, color="red", label="formula")
+        axis.plot(t, t_f, color="pink", label="formula", ls=(0, (5, 5)))
         fig.show()
 
 
@@ -205,6 +205,6 @@ if GRAPH:
     axis.set_title("Proper acceleration (Ship reference frame)")
     axis.set_xlabel("Ship time")
     axis.plot(t_[1:-1], a_, label="numeric")
-    axis.plot(t_[1:-1], a_f[1:-1], color="red", label="formula")
+    axis.plot(t_[1:-1], a_f[1:-1], color="pink", label="formula", ls=(0, (5, 5)))
     fig.legend()
     fig.show()
