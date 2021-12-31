@@ -21,6 +21,13 @@ def integrate(f, t):
     return np.hstack(([0], s))
 
 
+def diff(f, t):
+    """Numeric differentiation."""
+    df = f[1:] - f[:-1]
+    dt = t[1:] - t[:-1]
+    return df/dt
+
+
 def lorentz(v, t, x):
     """Apply the Lorentz transformation to (t,x)."""
     g = 1/np.sqrt(1-v**2)
@@ -196,6 +203,12 @@ d2x_ = dx_1 - dx_0
 dt2_ = ((dt_0 + dt_1)/2)**2
 a_ = d2x_/dt2_
 
+# Another way to compute proper acceleration (using 4-vectors)
+xx = np.moveaxis(np.array([[t], [x]]), -1, 0)
+uu = diff(xx, t_[:,None,None])
+aa = diff(uu, t_[1:,None,None])
+aa_ = L[1:-1] @ aa
+
 # Using formula (also valid for non-constant acceleration)
 a_f = (1/np.sqrt(1-v**2))**3*a
 assert np.mean(np.abs(a_ - a_f[1:-1])) < 1e-3  # but big differences at turning points
@@ -206,5 +219,6 @@ if GRAPH:
     axis.set_xlabel("Ship time")
     axis.plot(t_[1:-1], a_, label="numeric")
     axis.plot(t_[1:-1], a_f[1:-1], color="pink", label="formula", ls=(0, (5, 5)))
+    axis.plot(t_[1:-1], aa_[:,1,0], color="black", label="4-vectors", ls="dotted")
     fig.legend()
     fig.show()
