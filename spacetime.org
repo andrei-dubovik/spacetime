@@ -1,21 +1,22 @@
-* TODO Learn General Relativity                                      :Andrei:
+* CANC Learn General Relativity                                      :Andrei:
+  - We use flat spacetime for now
+* DONE Refresh Special Relativity and Acceleration                   :Andrei:
 * TODO A Simple Clock
   - [X] An FSP counter (you need an FPS counter to see your FPS)
-  - [ ] Check FPS for a smooth second hand
-    - [ ] Second hand is a part of a clock svg
-    - [ ] Second hand is a separate svg
-    - [ ] If FPS is low, consider canvas
+  - [X] Check FPS for a smooth second hand
+    - Firefox: about 0.20ms per 16.6ms frame, 96.8% idle time
+    - Chromium: about 0.6ms per 16.6ms frame, 96.6% idle time
   - [ ] SVG clock
     - [ ] Dial
     - [ ] Minute hand
     - [ ] Second hand
   - [ ] Animation
-  - [ ] Recheck FPS and CPU utilization with a dozen clocks or so
+  - [ ] Recheck FPS and CPU utilization with 4 clocks (3 planets + proper time)
     - [ ] Firefox
     - [ ] Chrome
     - [ ] Safari
     - [ ] CPU only (i.e. no GPU acceleration)
-* TODO Interface Sketch
+* DONE Interface Sketch
   - Considerations
     - Ship's reference frame PoV
     - Rotation is fixed
@@ -28,14 +29,31 @@
     - Game dashboard (say, under the spaceship dashboard)
       - FPS
       - Co-op latency
+    - Dark theme
 * TODO Interface Implementation
   - Mobile-compatible from the start
+  - [ ] A clock (+ calibrate scaling across smaller and bigger screens)
+  - [ ] Sidebar (big screen) / statusbar (small screen)
+  - [ ] 3 planets (should fit on screen with either planet centered)
+  - [ ] Spaceship
 * TODO Physics Engine
-* TODO Co-op Play
-  - via WebRTC
+  - [ ] Fixed acceleration schedule
+    - [ ] Set some acceleration wrt proper time
+    - [ ] Ship worldline in planetary IRF
+    - [ ] Animate ship motion in planetary IRF
+    - [ ] Ship's simultenaity plane and its intersection with planetary worldlines
+    - [ ] Animate ship motion in ship's RF
+    - [ ] Stats (acceleration, velocity, etc.)
+  - [ ] Simple route planning (from a stop to a stop in a straight line)
+  - [ ] Relativistic doppler effect (adjusted for visibility)
 * Questions
   - Planets can be shown where they are now (presumably), or where
     they were when the light started its journey from them towards the
     ship. The ship from the co-op player must be shown where it was,
     because it has an uncertain itinerary. So, what choice for the
     planets?
+* Possible Extensions
+  - [ ] Co-op Play (via WebRTC, interface time = planetary time)
+  - [ ] Fastest route plotting
+  - [ ] Anti-matter and matter have to be carried and contribute to mass
+  - [ ] GR and black holes (how do define distances so that there is a map?)
