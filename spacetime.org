@@ -32,7 +32,7 @@
     - Dark theme
 * TODO Interface Implementation
   - Mobile-compatible from the start
-  - [ ] A clock (+ calibrate scaling across smaller and bigger screens)
+  - [X] A clock (+ calibrate scaling across smaller and bigger screens)
   - [ ] Sidebar (big screen) / statusbar (small screen)
   - [ ] 3 planets (should fit on screen with either planet centered)
   - [ ] Spaceship
@@ -57,3 +57,4 @@
   - [ ] Fastest route plotting
   - [ ] Anti-matter and matter have to be carried and contribute to mass
   - [ ] GR and black holes (how do define distances so that there is a map?)
+  - [ ] Infinite grid of clocks
