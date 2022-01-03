@@ -13,6 +13,10 @@ body {
     font-family: "Verdana", sans-serif;
 }
 
+a {
+  color: inherit;
+}
+
 #main-container {
     height: 100%;
     width: 100%;
@@ -41,6 +45,14 @@ body {
 
 .ship-info {
     flex: 1 0 0;
+}
+
+.section {
+    margin-top: 1ex;
+}
+
+.item {
+    padding-left: 1em;
 }
 
 #map {
