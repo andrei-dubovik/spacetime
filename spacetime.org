@@ -6,10 +6,10 @@
   - [X] Check FPS for a smooth second hand
     - Firefox: about 0.20ms per 16.6ms frame, 96.8% idle time
     - Chromium: about 0.6ms per 16.6ms frame, 96.6% idle time
-  - [ ] SVG clock
-    - [ ] Dial
-    - [ ] Minute hand
-    - [ ] Second hand
+  - [X] SVG clock
+    - [X] Dial
+    - [X] Minute hand
+    - [X] Second hand
   - [ ] Animation
   - [ ] Recheck FPS and CPU utilization with 4 clocks (3 planets + proper time)
     - [ ] Firefox
@@ -33,8 +33,8 @@
 * TODO Interface Implementation
   - Mobile-compatible from the start
   - [X] A clock (+ calibrate scaling across smaller and bigger screens)
-  - [ ] Sidebar (big screen) / statusbar (small screen)
-  - [ ] 3 planets (should fit on screen with either planet centered)
+  - [X] Sidebar (big screen) / statusbar (small screen)
+  - [X] 3 planets (should fit on screen with either planet centered)
   - [ ] Spaceship
 * TODO Physics Engine
   - [ ] Fixed acceleration schedule
@@ -58,3 +58,4 @@
   - [ ] Anti-matter and matter have to be carried and contribute to mass
   - [ ] GR and black holes (how do define distances so that there is a map?)
   - [ ] Infinite grid of clocks
+  - [ ] Ship in isometric projection (a nod to classic video games)

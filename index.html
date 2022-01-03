@@ -8,46 +8,66 @@
     </head>
 
     <body>
-        <!-- viewBox size is given in lightseconds -->
-        <svg id="map" viewBox="0 0 70 70" style="">
-            <defs>
-                <g id="3ticks">
-                    <line x1="0" y1="-2" x2="0" y2="-3" class="major-tick"/>
-                    <line x1="0" y1="-2.5" x2="0" y2="-3" class="minor-tick" transform="rotate(30,0,0)"/>
-                    <line x1="0" y1="-2.5" x2="0" y2="-3" class="minor-tick" transform="rotate(60,0,0)"/>
-                </g>
-                <g id="clock-face">
-                    <use href="#3ticks" x="0" y="0"/>
-                    <use href="#3ticks" x="0" y="0" transform="rotate(90,0,0)"/>
-                    <use href="#3ticks" x="0" y="0" transform="rotate(180,0,0)"/>
-                    <use href="#3ticks" x="0" y="0" transform="rotate(270,0,0)"/>
-                </g>
-                <g id="star-face">
-                    <circle cx="0" cy="0" r="3" class="star-background"/>
-                    <use href="#clock-face" x="0" y="0"/>
-                </g>
-            </defs>
-            <g transform="translate(35,5)" class="star">
-                <g class="widget">
-                    <use href="#star-face"/>
-                    <line x1="0" y1="0", x2="0" y2="-2.3" class="minute-hand" transform="rotate(40,0,0)"/>
-                    <line x1="0" y1="0", x2="0" y2="-2.8" class="second-hand" transform="rotate(50,0,0)"/>
-                </g>
-            </g>
-            <g transform="translate(35,35)" class="star">
-                <g class="widget">
-                    <use href="#star-face"/>
-                    <line x1="0" y1="0", x2="0" y2="-2.3" class="minute-hand" transform="rotate(40,0,0)"/>
-                    <line x1="0" y1="0", x2="0" y2="-2.8" class="second-hand" transform="rotate(50,0,0)"/>
-                </g>
-            </g>
-            <g transform="translate(65,35)" class="star">
-                <g class="widget">
-                    <use href="#star-face"/>
-                    <line x1="0" y1="0", x2="0" y2="-2.3" class="minute-hand" transform="rotate(40,0,0)"/>
-                    <line x1="0" y1="0", x2="0" y2="-2.8" class="second-hand" transform="rotate(50,0,0)"/>
-                </g>
-            </g>
-        </svg>
+        <div id="main-container">
+            <div id="left-container">
+                <div id="status-bar">
+                    <div class="ship-info">
+                        Ship Info
+                    </div>
+                    <div class="site-info">
+                        Site Info
+                    </div>
+                </div>
+                <!-- viewBox size is given in lightseconds -->
+                <svg id="map" viewBox="0 0 70 70" preserveAspectRatio="xMidYMid">
+                    <defs>
+                        <g id="3ticks">
+                            <line x1="0" y1="-2" x2="0" y2="-3" class="major-tick"/>
+                            <line x1="0" y1="-2.5" x2="0" y2="-3" class="minor-tick" transform="rotate(30,0,0)"/>
+                            <line x1="0" y1="-2.5" x2="0" y2="-3" class="minor-tick" transform="rotate(60,0,0)"/>
+                        </g>
+                        <g id="clock-face">
+                            <use href="#3ticks" x="0" y="0"/>
+                            <use href="#3ticks" x="0" y="0" transform="rotate(90,0,0)"/>
+                            <use href="#3ticks" x="0" y="0" transform="rotate(180,0,0)"/>
+                            <use href="#3ticks" x="0" y="0" transform="rotate(270,0,0)"/>
+                        </g>
+                        <g id="star-face">
+                            <circle cx="0" cy="0" r="3" class="star-background"/>
+                            <use href="#clock-face" x="0" y="0"/>
+                        </g>
+                    </defs>
+                    <g transform="translate(35,5)" class="star">
+                        <g class="widget">
+                            <use href="#star-face"/>
+                            <line x1="0" y1="0", x2="0" y2="-2.3" class="minute-hand" transform="rotate(40,0,0)"/>
+                            <line x1="0" y1="0", x2="0" y2="-2.8" class="second-hand" transform="rotate(50,0,0)"/>
+                        </g>
+                    </g>
+                    <g transform="translate(35,35)" class="star">
+                        <g class="widget">
+                            <use href="#star-face"/>
+                            <line x1="0" y1="0", x2="0" y2="-2.3" class="minute-hand" transform="rotate(40,0,0)"/>
+                            <line x1="0" y1="0", x2="0" y2="-2.8" class="second-hand" transform="rotate(50,0,0)"/>
+                        </g>
+                    </g>
+                    <g transform="translate(65,35)" class="star">
+                        <g class="widget">
+                            <use href="#star-face"/>
+                            <line x1="0" y1="0", x2="0" y2="-2.3" class="minute-hand" transform="rotate(40,0,0)"/>
+                            <line x1="0" y1="0", x2="0" y2="-2.8" class="second-hand" transform="rotate(50,0,0)"/>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <div id="side-bar">
+                <div class="ship-info">
+                    Ship Info
+                </div>
+                <div class="site-info">
+                    Site Info
+                </div>
+            </div>
+        </div>
     </body>
 </html>
