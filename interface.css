@@ -42,7 +42,7 @@ a {
     display: flex;
     flex-direction: column;
     width: 150px;
-    padding: 7px 0 7px 7px;
+    padding: 0 0 7px 7px;
 }
 
 .ship-info {
@@ -90,6 +90,39 @@ a {
     vector-effect: non-scaling-stroke;
 }
 
+#eigenzeit-container {
+    text-align: center;
+    font-size: 0;
+}
+
+#eigenzeit-side {
+    width: 120px;
+}
+
+.major-tick-ez {
+    stroke: #888888;
+    stroke-width: 1.5px;
+    vector-effect: non-scaling-stroke;
+}
+
+.minor-tick-ez {
+    stroke: #888888;
+    stroke-width: 1.5px;
+    vector-effect: non-scaling-stroke;
+}
+
+.minute-hand-ez {
+    stroke: #d0d0d0;
+    stroke-width: 2px;
+    vector-effect: non-scaling-stroke;
+}
+
+.second-hand-ez {
+    stroke: #d0d0d0;
+    stroke-width: 1px;
+    vector-effect: non-scaling-stroke;
+}
+
 @media (max-width: 650px), (max-height: 650px) {
     .widget {
         transform: scale(1.2);
@@ -99,6 +132,9 @@ a {
 @media (max-width: 450px), (max-height: 450px) {
     .widget {
         transform: scale(1.4);
+    }
+    #eigenzeit-side {
+        width: 85px;
     }
 }
 
