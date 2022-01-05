@@ -36,6 +36,10 @@
   - [X] Sidebar (big screen) / statusbar (small screen)
   - [X] 3 planets (should fit on screen with either planet centered)
   - [X] Spaceship
+* TODO Animations
+  - [ ] FPS counter on sidebar
+  - [ ] Proper time ticks with computer clock
+  - [ ] Click rotates the ship to point in the click direction
 * TODO Physics Engine
   - [ ] Fixed acceleration schedule
     - [ ] Set some acceleration wrt proper time
@@ -59,3 +63,5 @@
   - [ ] GR and black holes (how do define distances so that there is a map?)
   - [ ] Infinite grid of clocks
   - [ ] Ship in isometric projection (a nod to classic video games)
+  - [ ] Show clock differences with red or green semicircles
+    - Won't it interfere with the doppler effect?
