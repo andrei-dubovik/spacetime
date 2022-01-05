@@ -90,6 +90,13 @@ a {
     vector-effect: non-scaling-stroke;
 }
 
+.ship-part {
+    fill: white;
+    stroke: black;
+    stroke-width: 1.5px;
+    vector-effect: non-scaling-stroke;
+}
+
 #eigenzeit-container {
     text-align: center;
     font-size: 0;

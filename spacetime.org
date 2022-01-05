@@ -30,12 +30,12 @@
       - FPS
       - Co-op latency
     - Dark theme
-* TODO Interface Implementation
+* DONE Basic Interface
   - Mobile-compatible from the start
   - [X] A clock (+ calibrate scaling across smaller and bigger screens)
   - [X] Sidebar (big screen) / statusbar (small screen)
   - [X] 3 planets (should fit on screen with either planet centered)
-  - [ ] Spaceship
+  - [X] Spaceship
 * TODO Physics Engine
   - [ ] Fixed acceleration schedule
     - [ ] Set some acceleration wrt proper time
