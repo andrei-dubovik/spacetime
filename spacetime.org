@@ -37,7 +37,7 @@
   - [X] 3 planets (should fit on screen with either planet centered)
   - [X] Spaceship
 * TODO Animations
-  - [ ] FPS counter on sidebar
+  - [X] FPS counter on sidebar
   - [ ] Proper time ticks with computer clock
   - [ ] Click rotates the ship to point in the click direction
 * TODO Physics Engine
