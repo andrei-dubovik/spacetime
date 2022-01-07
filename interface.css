@@ -106,25 +106,25 @@ a {
     width: 120px;
 }
 
-.major-tick-ez {
+.major-tick.ez {
     stroke: #888888;
     stroke-width: 1.5px;
     vector-effect: non-scaling-stroke;
 }
 
-.minor-tick-ez {
+.minor-tick.ez {
     stroke: #888888;
     stroke-width: 1.5px;
     vector-effect: non-scaling-stroke;
 }
 
-.minute-hand-ez {
+.minute-hand.ez {
     stroke: #d0d0d0;
     stroke-width: 2px;
     vector-effect: non-scaling-stroke;
 }
 
-.second-hand-ez {
+.second-hand.ez {
     stroke: #d0d0d0;
     stroke-width: 1px;
     vector-effect: non-scaling-stroke;
