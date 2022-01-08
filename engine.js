@@ -17,10 +17,10 @@ function updateFPS(state) {
 }
 
 
-/** Set a clock to given time (in milliseconds) */
+/** Set a clock to given time */
 function updateClock(clock, time) {
-    let minutes = (time / 1000) % 60;  // 1 minute ticks as 1 second
-    let hours = (time / 60000) % 12;
+    let minutes = time % 60;  // 1 minute ticks as 1 second
+    let hours = (time / 60) % 12;
     let minuteHand = clock.querySelector(".minute-hand");
     if (minuteHand != null) {
         // Analog clock
@@ -56,7 +56,7 @@ function dProperTime(timestamp, previousTimestamp) {
     if (dtau >= 100) {
         dtau = 0;  // Freeze simulation below 10 FPS (e.g., tab switches)
     }
-    return dtau;
+    return dtau/1000;
 }
 
 
