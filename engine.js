@@ -60,10 +60,27 @@ function dProperTime(timestamp, previousTimestamp) {
 }
 
 
+/** Get 4-acceleration from a predefined schedule (dev only) */
+function scheduledAcc(properTime) {
+    if (properTime <= 5) {
+        return [0, 0, 0];
+    } else if (properTime <= 10) {
+        return [0, 0, -0.2];
+    } else if (properTime <= 30) {
+        return [0, 0, 0];
+    } else if (properTime <= 35) {
+        return [0, 0, 0.2];
+    } else {
+        return [0, 0, 0];
+    }
+}
+
+
 /** Update the simulation and the interface */
 function updateFrame(timestamp, previousTimestamp, state) {
     updateFPS(state);
     state.properTime += dProperTime(timestamp, previousTimestamp);
+    state.ownAcc = scheduledAcc(state.properTimer);
     updateAllClocks(state);
     window.requestAnimationFrame(t => updateFrame(t, timestamp, state));
 }
@@ -78,6 +95,12 @@ function init() {
         ownAnalogClock: document.getElementById("eigenzeit-side"),
         ownDigitalClock: document.getElementById("eigenzeit-top"),
         stars: document.querySelectorAll(".star"),
+        ship: {
+            pos: [0, 0, 0],     // displacement, stars' IRF
+            vel: [1, 0, 0],     // 4-velocity, stars' IRF
+            acc: [0, 0, 0],     // 4-acceleration, stars' IRF
+            ownAcc: [0, 0, 0],  // 4-acceleration, ship's non-rotated IRF
+        },
     };
     window.requestAnimationFrame(t => updateFrame(t, 0, state));
 }

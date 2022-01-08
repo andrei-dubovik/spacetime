@@ -41,8 +41,8 @@
   - [X] Proper time ticks with computer clock
   - [ ] Click rotates the ship to point in the click direction
 * TODO Physics Engine
-  - [ ] Fixed acceleration schedule
-    - [ ] Set some acceleration wrt proper time
+  - [-] Fixed acceleration schedule
+    - [X] Set some acceleration wrt proper time
     - [ ] Ship worldline in planetary IRF
     - [ ] Animate ship motion in planetary IRF
     - [ ] Ship's simultenaity plane and its intersection with planetary worldlines
