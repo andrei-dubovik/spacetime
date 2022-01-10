@@ -43,7 +43,8 @@
 * TODO Physics Engine
   - [-] Fixed acceleration schedule
     - [X] Set some acceleration wrt proper time
-    - [ ] Ship worldline in planetary IRF
+    - [X] Ship worldline in planetary IRF
+    - [ ] Ensure |u| = -1 (for numerical stability)
     - [ ] Animate ship motion in planetary IRF
     - [ ] Ship's simultenaity plane and its intersection with planetary worldlines
     - [ ] Animate ship motion in ship's RF
