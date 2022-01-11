@@ -44,7 +44,7 @@
   - [-] Fixed acceleration schedule
     - [X] Set some acceleration wrt proper time
     - [X] Ship worldline in planetary IRF
-    - [ ] Ensure |u| = -1 (for numerical stability)
+    - [X] Ensure |u| = -1 (for numerical stability)
     - [ ] Animate ship motion in planetary IRF
     - [ ] Ship's simultenaity plane and its intersection with planetary worldlines
     - [ ] Animate ship motion in ship's RF

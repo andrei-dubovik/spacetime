@@ -150,6 +150,9 @@ function stepShip(ship, dtau) {
     let v = dot_0_i(-1/ship.vel[0], ship.vel.slice(1, 3));
     let Linv = lorentz(v);
     ship.acc = dot_ij_j(Linv, ship.ownAcc);
+
+    // Adjust 4-velocity so that |u| = -1 (this a numeric correction)
+    ship.vel = dot_ij_j(Linv, [1, 0, 0]);
 }
 
 
