@@ -45,9 +45,11 @@
     - [X] Set some acceleration wrt proper time
     - [X] Ship worldline in planetary IRF
     - [X] Ensure |u| = -1 (for numerical stability)
-    - [ ] Animate ship motion in planetary IRF
+    - [X] Animate ship motion in planetary IRF
     - [ ] Ship's simultenaity plane and its intersection with planetary worldlines
     - [ ] Animate ship motion in ship's RF
+      - [ ] Stars' positions
+      - [ ] Stars' clocks
     - [ ] Stats (acceleration, velocity, etc.)
   - [ ] Simple route planning (from a stop to a stop in a straight line)
   - [ ] Relativistic doppler effect (adjusted for visibility)
@@ -66,3 +68,5 @@
   - [ ] Ship in isometric projection (a nod to classic video games)
   - [ ] Show clock differences with red or green semicircles
     - Won't it interfere with the doppler effect?
+* TODO Issues
+  - [ ] Motion is jumpy in Firefox, smooth in Chromium, Edge and Safari

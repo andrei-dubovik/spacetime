@@ -141,6 +141,15 @@ function scheduledAcc(properTime) {
 }
 
 
+/** Show ship's position in stars' IRF (dev only) */
+function updateShip(ship) {
+    let widget = document.getElementById("ship");
+    let x = ship.pos[1];
+    let y = ship.pos[2];
+    widget.setAttribute("transform", `translate(${x},${y})`);
+}
+
+
 /** Change ship's position over a small time interval */
 function stepShip(ship, dtau) {
     addAssign(ship.pos, dot_0_i(dtau, ship.vel));  // x += dx/dtau*dtau
@@ -164,6 +173,7 @@ function updateFrame(timestamp, previousTimestamp, state) {
     state.ship.ownAcc = scheduledAcc(state.properTime);
     stepShip(state.ship, dtau);
     updateAllClocks(state);
+    updateShip(state.ship);
     window.requestAnimationFrame(t => updateFrame(t, timestamp, state));
 }
 
