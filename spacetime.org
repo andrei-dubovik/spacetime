@@ -46,6 +46,7 @@
     - [X] Ship worldline in planetary IRF
     - [X] Ensure |u| = -1 (for numerical stability)
     - [X] Animate ship motion in planetary IRF
+    - [X] Solve a system of linear equations in javascript
     - [ ] Ship's simultenaity plane and its intersection with planetary worldlines
     - [ ] Animate ship motion in ship's RF
       - [ ] Stars' positions

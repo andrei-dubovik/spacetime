@@ -4,6 +4,87 @@
 
 // All array operations assume rectangular arrays
 
+/** Create an array with values 0, 1, ..., n-1 */
+function arange(n) {
+    let a = [];
+    for (let i = 0; i < n; i++) {
+        a[i] = i;
+    }
+    return a;
+}
+
+
+/** Swap two values in an array (in-place) */
+function swap(a, i, j) {
+    let buf = a[i];
+    a[i] = a[j];
+    a[j] = buf;
+}
+
+
+/** Compute LU decomposition (in-place) */
+function luFactorize(lu) {
+    let n = lu.length;
+    if (n != lu[0].length) {
+        throw new Error("Cannot LU factorize a non-square matrix");
+    }
+    let p = arange(n);
+
+    for (let i = 0; i < n; i++) {  // `i < n` for the singularity check
+        // Partial pivot
+        let max = 0;
+        let k = NaN;
+        for (let j = i; j < n; j++) {
+            let x = Math.abs(lu[j][i]);
+            if (x > max) {
+                max = x;
+                k = j;
+            }
+        }
+        if (max < 1e-16) {  // a bit arbitrary for the moment
+            throw new Error("Singular matrix detected");
+        }
+        if (k != i) {
+            swap(lu, i, k);
+            swap(p, i, k);
+        }
+
+        // Gaussian elimination
+        for (let j = i + 1; j < n; j++) {
+            lu[j][i] /= lu[i][i];
+            for (let k = i + 1; k < n; k++) {
+                lu[j][k] -= lu[i][k]*lu[j][i];
+            }
+        }
+    }
+    return p;
+}
+
+
+/** Solve a linear system given its LU decomposition */
+function luSolve(lu, p, b) {
+    let n = lu.length;
+    let x = [];
+
+    // Solve the lower-triangle system
+    for (let i = 0; i < n; i++) {
+        x[i] = b[p[i]];
+        for (let j = 0; j < i; j++) {
+            x[i] -= lu[i][j]*x[j];
+        }
+    }
+
+    // Solve the upper-triangle system
+    for (let i = n - 1; i >= 0; i--) {
+        for (let j = i + 1; j < n; j++) {
+            x[i] -= lu[i][j]*x[j];
+        }
+        x[i] /= lu[i][i];
+    }
+    return x;
+}
+
+
 /** Apply an operator to a vector */
 function dot_ij_j(a1, a2) {
     if (a1[0].length != a2.length) {
