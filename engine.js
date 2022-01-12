@@ -1,5 +1,7 @@
 "use strict";
 
+// Copyright (c) 2022 Andrey Dubovik <andrei at dubovik dot eu>
+
 // All array operations assume rectangular arrays
 
 /** Apply an operator to a vector */
