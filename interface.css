@@ -97,12 +97,12 @@ a {
     vector-effect: non-scaling-stroke;
 }
 
-#eigenzeit-container {
+#clock-container {
     text-align: center;
     font-size: 0;
 }
 
-#eigenzeit-side {
+#analog-clock {
     width: 120px;
 }
 
@@ -140,7 +140,7 @@ a {
     .widget {
         transform: scale(1.4);
     }
-    #eigenzeit-side {
+    #analog-clock {
         width: 85px;
     }
 }

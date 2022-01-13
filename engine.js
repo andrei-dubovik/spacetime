@@ -190,10 +190,10 @@ function updateClock(clock, time) {
 
 /** Update all clocks (poor poor Captain Hook) */
 function updateAllClocks(state) {
-    updateClock(state.ownAnalogClock, state.properTime);
-    updateClock(state.ownDigitalClock, state.properTime);
+    updateClock(state.ship.analogClock, state.ship.ownTime);
+    updateClock(state.ship.digitalClock, state.ship.ownTime);
     for (let star of state.stars) {
-        updateClock(star, state.properTime);
+        updateClock(star.widget, state.ship.ownTime);
     }
 }
 
@@ -226,10 +226,9 @@ function scheduledAcc(properTime) {
 
 /** Show ship's position in stars' IRF (dev only) */
 function updateShip(ship) {
-    let widget = document.getElementById("ship");
     let x = ship.pos[1];
     let y = ship.pos[2];
-    widget.setAttribute("transform", `translate(${x},${y})`);
+    ship.widget.setAttribute("transform", `translate(${x},${y})`);
 }
 
 
@@ -252,8 +251,8 @@ function stepShip(ship, dtau) {
 function updateFrame(timestamp, previousTimestamp, state) {
     updateFPS(state);
     let dtau = dProperTime(timestamp, previousTimestamp);
-    state.properTime += dtau;
-    state.ship.ownAcc = scheduledAcc(state.properTime);
+    state.ship.ownTime += dtau;
+    state.ship.ownAcc = scheduledAcc(state.ship.ownTime);
     stepShip(state.ship, dtau);
     updateAllClocks(state);
     updateShip(state.ship);
@@ -261,20 +260,37 @@ function updateFrame(timestamp, previousTimestamp, state) {
 }
 
 
+/** Get initial position of an SVG element */
+function initPos(svg) {
+    let m = svg.transform.baseVal.consolidate().matrix;
+    return [0, m.e, m.f];
+}
+
+
 /** Initialize the simulation */
 function init() {
+    let ship = document.getElementById("ship");
+    let stars = [];
+    for (let star of document.querySelectorAll(".star")) {
+        stars.push({
+            widget: star,
+            pos: initPos(star),
+        });
+    }
+
     let state = {
         fps: 0,
         timer: Math.floor(Date.now()/1000),
-        properTime: 0,
-        ownAnalogClock: document.getElementById("eigenzeit-side"),
-        ownDigitalClock: document.getElementById("eigenzeit-top"),
-        stars: document.querySelectorAll(".star"),
+        stars: stars,
         ship: {
-            pos: [0, 0, 0],     // displacement, stars' IRF
-            vel: [1, 0, 0],     // 4-velocity, stars' IRF
-            acc: [0, 0, 0],     // 4-acceleration, stars' IRF
-            ownAcc: [0, 0, 0],  // 4-acceleration, ship's non-rotated IRF
+            widget: ship,
+            analogClock: document.getElementById("analog-clock"),
+            digitalClock: document.getElementById("digital-clock"),
+            ownTime: 0,          // Proper time
+            pos: initPos(ship),  // displacement, stars' IRF
+            vel: [1, 0, 0],      // 4-velocity, stars' IRF
+            acc: [0, 0, 0],      // 4-acceleration, stars' IRF
+            ownAcc: [0, 0, 0],   // 4-acceleration, ship's non-rotated IRF
         },
     };
     window.requestAnimationFrame(t => updateFrame(t, 0, state));
