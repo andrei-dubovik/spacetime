@@ -48,9 +48,9 @@
     - [X] Animate ship motion in planetary IRF
     - [X] Solve a system of linear equations in javascript
     - [X] Ship's simultenaity plane and its intersection with planetary worldlines
-    - [ ] Animate ship motion in ship's RF
-      - [ ] Stars' positions
-      - [ ] Stars' clocks
+    - [X] Animate ship motion in ship's RF
+      - [X] Stars' positions
+      - [X] Stars' clocks
     - [ ] Stats (acceleration, velocity, etc.)
   - [ ] Simple route planning (from a stop to a stop in a straight line)
   - [ ] Relativistic doppler effect (adjusted for visibility)

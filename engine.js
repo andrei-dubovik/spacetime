@@ -161,6 +161,18 @@ function lorentz(v) {
 }
 
 
+/** Set rotation of an SVG element */
+function setAngle(svg, angle) {
+    svg.setAttribute("transform", `rotate(${angle})`);
+}
+
+
+/** Set position of an SVG element */
+function setPosition(svg, x, y) {
+    svg.setAttribute("transform", `translate(${x},${y})`);
+}
+
+
 /** Track and show FPS */
 function updateFPS(state) {
     state.fps += 1;
@@ -186,8 +198,8 @@ function updateClock(clock, time) {
     if (minuteHand != null) {
         // Analog clock
         let hourHand = clock.querySelector(".hour-hand");
-        minuteHand.setAttribute("transform", `rotate(${minutes*6})`);
-        hourHand.setAttribute("transform", `rotate(${hours*30})`);
+        setAngle(minuteHand, minutes*6);
+        setAngle(hourHand, hours*30);
     }
     if (clock.localName == "span") {
         // Digital clock
@@ -197,16 +209,6 @@ function updateClock(clock, time) {
         if (clock.innerHTML != text) {
             clock.innerHTML = text;
         }
-    }
-}
-
-
-/** Update all clocks (poor poor Captain Hook) */
-function updateAllClocks(state) {
-    updateClock(state.ship.analogClock, state.ship.ownTime);
-    updateClock(state.ship.digitalClock, state.ship.ownTime);
-    for (let star of state.stars) {
-        updateClock(star.widget, state.ship.ownTime);
     }
 }
 
@@ -234,14 +236,6 @@ function scheduledAcc(properTime) {
     } else {
         return [0, 0, 0];
     }
-}
-
-
-/** Show ship's position in stars' IRF (dev only) */
-function updateShip(ship) {
-    let x = ship.pos[1];
-    let y = ship.pos[2];
-    ship.widget.setAttribute("transform", `translate(${x},${y})`);
 }
 
 
@@ -287,6 +281,22 @@ function currentStarPos(ship, stars) {
 }
 
 
+/** Update relative position of stars and their clocks (poor poor Captain Hook) */
+function updateStars(stars) {
+    for (let star of stars) {
+        updateClock(star.widget, star.pos[0]);
+        setPosition(star.widget, star.pos[1], star.pos[2]);
+    }
+}
+
+
+/** Update ship's clocks */
+function updateShip(ship) {
+    updateClock(ship.analogClock, ship.ownTime);
+    updateClock(ship.digitalClock, ship.ownTime);
+}
+
+
 /** Update the simulation and the interface */
 function updateFrame(timestamp, previousTimestamp, state) {
     updateFPS(state);
@@ -294,8 +304,8 @@ function updateFrame(timestamp, previousTimestamp, state) {
     state.ship.ownTime += dtau;
     state.ship.ownAcc = scheduledAcc(state.ship.ownTime);
     stepShip(state.ship, dtau);
-    updateAllClocks(state);
     updateShip(state.ship);
+    updateStars(currentStarPos(state.ship, state.stars));
     window.requestAnimationFrame(t => updateFrame(t, timestamp, state));
 }
 
