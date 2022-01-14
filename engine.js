@@ -122,6 +122,19 @@ function addAssign(a0, a1) {
 }
 
 
+/** Substract one vector from another */
+function sub(a1, a2) {
+    if (a1.length != a2.length) {
+        throw new Error("Non-conformant arrays");
+    }
+    let a0 = [];
+    for (let i = 0; i < a1.length; i++) {
+        a0[i] = a1[i] - a2[i];
+    }
+    return a0;
+}
+
+
 /** Construct a Lorentz operator */
 function lorentz(v) {
     let vx = v[0];
@@ -244,6 +257,33 @@ function stepShip(ship, dtau) {
 
     // Adjust 4-velocity so that |u| = -1 (this a numeric correction)
     ship.vel = dot_ij_j(Linv, [1, 0, 0]);
+}
+
+
+/** Intersect ship's simultenaity plane with stars' worldlines */
+function currentStarPos(ship, stars) {
+    let v = dot_0_i(1/ship.vel[0], ship.vel.slice(1, 3));
+    let L = lorentz(v);
+    let A = [
+        [L[0][0], L[0][1], L[0][2], -1,  0,  0],
+        [L[1][0], L[1][1], L[1][2],  0, -1,  0],
+        [L[2][0], L[2][1], L[2][2],  0,  0, -1],
+        [      0,       0,       0,  1,  0,  0],
+        [      0,       1,       0,  0,  0,  0],
+        [      0,       0,       1,  0,  0,  0],
+    ];
+    let p = luFactorize(A);
+    let view = [];
+    for (let star of stars) {
+        let y = sub(star.pos, ship.pos);
+        let b = [0, 0, 0, 0, y[1], y[2]];
+        let x = luSolve(A, p, b);
+        view.push({
+            widget: star.widget,
+            pos: [x[0] + ship.pos[0], x[4], x[5]],
+        });
+    }
+    return view;
 }
 
 
