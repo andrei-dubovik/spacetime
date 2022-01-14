@@ -193,7 +193,7 @@ function updateFPS(state) {
 
 
 /** Set a clock to given time */
-function updateClock(clock, time) {
+function setClock(clock, time) {
     let minutes = time % 60;  // 1 minute ticks as 1 second
     let hours = (time / 60) % 12;
     let minuteHand = clock.querySelector(".minute-hand");
@@ -284,31 +284,31 @@ function currentStarPos(ship, stars) {
 
 
 /** Update relative position of stars and their clocks (poor poor Captain Hook) */
-function updateStars(stars) {
+function drawStars(stars) {
     for (let star of stars) {
-        updateClock(star.widget, star.pos[0]);
+        setClock(star.widget, star.pos[0]);
         setPosition(star.widget, star.pos[1], star.pos[2]);
     }
 }
 
 
 /** Update ship's clocks */
-function updateShip(ship) {
-    updateClock(ship.analogClock, ship.ownTime);
-    updateClock(ship.digitalClock, ship.ownTime);
+function drawShip(ship) {
+    setClock(ship.analogClock, ship.ownTime);
+    setClock(ship.digitalClock, ship.ownTime);
 }
 
 
 /** Update the simulation and the interface */
-function updateFrame(timestamp, previousTimestamp, state) {
+function drawFrame(timestamp, previousTimestamp, state) {
     updateFPS(state);
     let dtau = dProperTime(timestamp, previousTimestamp);
     state.ship.ownTime += dtau;
     state.ship.ownAcc = scheduledAcc(state.ship.ownTime);
     stepShip(state.ship, dtau);
-    updateShip(state.ship);
-    updateStars(currentStarPos(state.ship, state.stars));
-    window.requestAnimationFrame(t => updateFrame(t, timestamp, state));
+    drawShip(state.ship);
+    drawStars(currentStarPos(state.ship, state.stars));
+    window.requestAnimationFrame(t => drawFrame(t, timestamp, state));
 }
 
 
@@ -345,7 +345,7 @@ function init() {
             ownAcc: [0, 0, 0],   // 4-acceleration, ship's non-rotated IRF
         },
     };
-    window.requestAnimationFrame(t => updateFrame(t, 0, state));
+    window.requestAnimationFrame(t => drawFrame(t, 0, state));
 }
 
 
