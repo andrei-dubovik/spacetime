@@ -169,7 +169,9 @@ function setAngle(svg, angle) {
 
 /** Set position of an SVG element */
 function setPosition(svg, x, y) {
-    svg.setAttribute("transform", `translate(${x},${y})`);
+    // We add rotate(0.1) becuause no clock is ever hanged straight
+    // (resolves choppy animation in Firefox)
+    svg.setAttribute("transform", `translate(${x},${y}) rotate(0.1)`);
 }
 
 

@@ -69,5 +69,5 @@
   - [ ] Ship in isometric projection (a nod to classic video games)
   - [ ] Show clock differences with red or green semicircles
     - Won't it interfere with the doppler effect?
-* TODO Issues
-  - [ ] Motion is jumpy in Firefox, smooth in Chromium, Edge and Safari
+* DONE Issues
+  - [X] Motion is jumpy in Firefox, smooth in Chromium, Edge and Safari
