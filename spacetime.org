@@ -36,10 +36,9 @@
   - [X] Sidebar (big screen) / statusbar (small screen)
   - [X] 3 planets (should fit on screen with either planet centered)
   - [X] Spaceship
-* TODO Animations
+* DONE Animations
   - [X] FPS counter on sidebar
   - [X] Proper time ticks with computer clock
-  - [ ] Click rotates the ship to point in the click direction
 * TODO Physics Engine
   - [-] Fixed acceleration schedule
     - [X] Set some acceleration wrt proper time
@@ -53,8 +52,17 @@
       - [X] Stars' clocks
     - [ ] Stats (acceleration, velocity, etc.)
     - [X] 3-acceleration as a function of 1-acceleration and ship's direction
-  - [ ] Simple route planning (from a stop to a stop in a straight line)
   - [ ] Relativistic doppler effect (adjusted for visibility)
+* TODO Routes
+  - Constraints:
+    - predefined routes between stars
+    - rotate the ship at start
+    - rotate the ship just before deceleration
+    - smooth acceleration (bounded jerk)
+  - [ ] How to represent preplanned routes?
+  - [ ] Precompute all 6 possible routes
+  - [ ] Click to select (plus visual feedback)
+  - [ ] Adjust for the numeric drift
 * Questions
   - Planets can be shown where they are now (presumably), or where
     they were when the light started its journey from them towards the
