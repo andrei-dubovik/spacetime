@@ -63,6 +63,13 @@
   - [ ] Precompute all 6 possible routes
   - [ ] Click to select (plus visual feedback)
   - [ ] Adjust for the numeric drift
+* TODO Hosting
+  - [X] Register twinparadox.org
+  - [ ] SSL certificate
+  - [ ] Configure Apache ("coming soon")
+* TODO Miscellaneous
+  - [ ] README.md for github
+  - [ ] Make github repository public
 * Questions
   - Planets can be shown where they are now (presumably), or where
     they were when the light started its journey from them towards the
