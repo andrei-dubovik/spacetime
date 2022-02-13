@@ -161,6 +161,21 @@ function lorentz(v) {
 }
 
 
+/** Rotate an attitude vector by a given angle */
+function rotateAtt(att, angle) {
+    let cos = Math.cos(angle);
+    let sin = Math.sin(angle);
+    let R = [[cos, -sin], [sin, cos]];
+    return dot_ij_j(R, att);
+}
+
+
+/** Compute the angle of an attitude vector */
+function attAngle(att) {
+    return Math.atan2(att[1], att[0])*180/Math.PI;
+}
+
+
 /** Set rotation of an SVG element */
 function setAngle(svg, angle) {
     svg.setAttribute("transform", `rotate(${angle})`);
@@ -225,19 +240,38 @@ function dProperTime(timestamp, previousTimestamp) {
 }
 
 
-/** Get 4-acceleration from a predefined schedule (dev only) */
+/** Get 1-acceleration from a predefined schedule (dev only) */
 function scheduledAcc(properTime) {
     if (properTime <= 5) {
-        return [0, 0, 0];
+        return 0;
     } else if (properTime <= 10) {
-        return [0, 0, -0.2];
+        return 0.2;
     } else if (properTime <= 30) {
-        return [0, 0, 0];
+        return 0;
     } else if (properTime <= 35) {
-        return [0, 0, 0.2];
+        return 0.2;
     } else {
-        return [0, 0, 0];
+        return 0;
     }
+}
+
+
+/** Get attitude from a predefined schedule (dev only) */
+function scheduledAtt(properTime) {
+    if (properTime <= 29) {
+        return [0, -1];
+    } else if (properTime <= 30) {
+        let angle = (1 - Math.cos((properTime - 29)*Math.PI))/2*Math.PI;
+        return rotateAtt([0, -1], angle);
+    } else {
+        return [0, 1];
+    }
+}
+
+
+/** Compose 4-acceleration from 1-acceleration and an attitude vector */
+function composeAcc(acc, att) {
+    return [0, acc*att[0], acc*att[1]];
 }
 
 
@@ -292,10 +326,11 @@ function drawStars(stars) {
 }
 
 
-/** Update ship's clocks */
+/** Update ship's clocks and ship's orientation */
 function drawShip(ship) {
     setClock(ship.analogClock, ship.ownTime);
     setClock(ship.digitalClock, ship.ownTime);
+    setAngle(ship.widget, attAngle(ship.att));
 }
 
 
@@ -304,7 +339,9 @@ function drawFrame(timestamp, previousTimestamp, state) {
     updateFPS(state);
     let dtau = dProperTime(timestamp, previousTimestamp);
     state.ship.ownTime += dtau;
-    state.ship.ownAcc = scheduledAcc(state.ship.ownTime);
+    let acc = scheduledAcc(state.ship.ownTime);
+    state.ship.att = scheduledAtt(state.ship.ownTime);
+    state.ship.ownAcc = composeAcc(acc, state.ship.att);
     stepShip(state.ship, dtau);
     drawShip(state.ship);
     drawStars(currentStarPos(state.ship, state.stars));
@@ -316,6 +353,13 @@ function drawFrame(timestamp, previousTimestamp, state) {
 function initPos(svg) {
     let m = svg.transform.baseVal.consolidate().matrix;
     return [0, m.e, m.f];
+}
+
+
+/** Get initial orientation of an SVG element */
+function initAtt(svg) {
+    let m = svg.transform.baseVal.consolidate().matrix;
+    return [m.a, m.b];
 }
 
 
@@ -343,6 +387,7 @@ function init() {
             vel: [1, 0, 0],      // 4-velocity, stars' IRF
             acc: [0, 0, 0],      // 4-acceleration, stars' IRF
             ownAcc: [0, 0, 0],   // 4-acceleration, ship's non-rotated IRF
+            att: initAtt(ship),  // attitude vector
         },
     };
     window.requestAnimationFrame(t => drawFrame(t, 0, state));

@@ -52,6 +52,7 @@
       - [X] Stars' positions
       - [X] Stars' clocks
     - [ ] Stats (acceleration, velocity, etc.)
+    - [X] 3-acceleration as a function of 1-acceleration and ship's direction
   - [ ] Simple route planning (from a stop to a stop in a straight line)
   - [ ] Relativistic doppler effect (adjusted for visibility)
 * Questions
