@@ -39,7 +39,7 @@
 * DONE Animations
   - [X] FPS counter on sidebar
   - [X] Proper time ticks with computer clock
-* TODO Physics Engine
+* DONE Physics Engine
   - [X] Fixed acceleration schedule
     - [X] Set some acceleration wrt proper time
     - [X] Ship worldline in planetary IRF
@@ -54,7 +54,6 @@
       - [X] Proper Acceleration
       - [X] Speed
     - [X] 3-acceleration as a function of 1-acceleration and ship's direction
-  - [ ] Relativistic doppler effect (adjusted for visibility)
 * TODO Routes
   - Constraints:
     - predefined routes between stars
@@ -89,5 +88,9 @@
   - [ ] Ship in isometric projection (a nod to classic video games)
   - [ ] Show clock differences with red or green semicircles
     - Won't it interfere with the doppler effect?
+  - [ ] "As seen" mode as opposed to "as is" mode
+    - [ ] Show the stars where they seem to be given the signal received from them
+    - [ ] Relativistic doppler effect (adjusted for visibility)
+
 * DONE Issues
   - [X] Motion is jumpy in Firefox, smooth in Chromium, Edge and Safari
