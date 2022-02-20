@@ -241,11 +241,18 @@ function setGauge(gauge, value) {
 
 /** Update all dashboard gauges */
 function updateDashboard(ship) {
+    // Time
+    for (let clock of ship.dashboard.time) {
+        setClock(clock, ship.ownTime);
+    }
+
+    // Acceleration
     let acc = Math.hypot(ship.ownAcc[1], ship.ownAcc[2]);
     for (let gauge of ship.dashboard.acc) {
         setGauge(gauge, acc);
     }
 
+    // Speed
     let vel = threeVelocity(ship.vel);
     let speed = Math.hypot(vel[0], vel[1]);
     for (let gauge of ship.dashboard.speed) {
@@ -354,10 +361,8 @@ function drawStars(stars) {
 }
 
 
-/** Update ship's clocks and ship's orientation */
+/** Update ship's dashboard and ship's orientation */
 function drawShip(ship) {
-    setClock(ship.analogClock, ship.ownTime);
-    setClock(ship.digitalClock, ship.ownTime);
     updateDashboard(ship);
     setAngle(ship.widget, attAngle(ship.att));
 }
@@ -410,11 +415,13 @@ function init() {
         ship: {
             widget: ship,
             dashboard: {
+                time: [
+                    document.getElementById("analog-clock"),
+                    document.getElementById("digital-clock"),
+                ],
                 acc: document.querySelectorAll(".db-acc"),
                 speed: document.querySelectorAll(".db-speed"),
             },
-            analogClock: document.getElementById("analog-clock"),
-            digitalClock: document.getElementById("digital-clock"),
             ownTime: 0,          // Proper time
             pos: initPos(ship),  // displacement, stars' IRF
             vel: [1, 0, 0],      // 4-velocity, stars' IRF
