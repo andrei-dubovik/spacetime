@@ -13,12 +13,9 @@
         <div id="main-container">
             <div id="left-container">
                 <div id="status-bar">
-                    <div class="ship-info">
-                        Proper time: <span id="digital-clock">00:00</span>
-                    </div>
-                    <div class="site-info">
-                        <a href="https://github.com/andrei-dubovik/spacetime">GitHub</a>
-                    </div>
+                    <div>Proper time: <span id="digital-clock">00:00</span></div>
+                    <div id="status-bar-speed">Speed: <span class="db-speed">0.00</span> c</span></div>
+                    <div><a href="https://github.com/andrei-dubovik/spacetime">GitHub</a></div>
                 </div>
                 <!-- viewBox size is given in lightminutes -->
                 <svg id="map" viewBox="-35 -35 70 70" preserveAspectRatio="xMidYMid">
@@ -90,6 +87,8 @@
                             <line x1="0" y1="0", x2="0" y2="-2.8" class="minute-hand ez" transform="rotate(0)"/>
                         </svg>
                     </div>
+                    <div class="section">Acc.: <span class="db-acc">0.00</span> c/s</div>
+                    <div class="section">Speed: <span class="db-speed">0.00</span> c</div>
                 </div>
                 <div class="site-info">
                     <div class="section">FPS: <span id="fps-counter">0</span></div>

@@ -34,6 +34,7 @@ a {
 #status-bar {
     display: none;
     align-items: center;
+    justify-content: space-between;
     height: 30px;
     padding: 0 7px 0 7px;
 }
@@ -41,7 +42,7 @@ a {
 #side-bar {
     display: flex;
     flex-direction: column;
-    width: 150px;
+    width: 170px;
     padding: 0 0 7px 7px;
 }
 
@@ -150,6 +151,12 @@ a {
         display: flex;
     }
     #side-bar {
+        display: none;
+    }
+}
+
+@media (orientation: portrait) and (max-width: 350px) {
+    #status-bar-speed {
         display: none;
     }
 }

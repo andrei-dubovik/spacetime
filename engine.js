@@ -230,6 +230,30 @@ function setClock(clock, time) {
 }
 
 
+/** Set a text gauge to a given value */
+function setGauge(gauge, value) {
+    let text = value.toFixed(2);
+    if (gauge.innerHTML != text) {
+        gauge.innerHTML = text;
+    }
+}
+
+
+/** Update all dashboard gauges */
+function updateDashboard(ship) {
+    let acc = Math.hypot(ship.ownAcc[1], ship.ownAcc[2]);
+    for (let gauge of ship.dashboard.acc) {
+        setGauge(gauge, acc);
+    }
+
+    let vel = threeVelocity(ship.vel);
+    let speed = Math.hypot(vel[0], vel[1]);
+    for (let gauge of ship.dashboard.speed) {
+        setGauge(gauge, speed);
+    }
+}
+
+
 /** Compute Proper Time delta (ticks along with computer time) */
 function dProperTime(timestamp, previousTimestamp) {
     let dtau = timestamp - previousTimestamp;
@@ -275,14 +299,18 @@ function composeAcc(acc, att) {
 }
 
 
+/** Compute 3-velocity from 4-velocity */
+function threeVelocity(vel) {
+    // v = dxy/dtau / dt/dtau = dxy/dt
+    return dot_0_i(1/vel[0], vel.slice(1, 3));
+}
+
+
 /** Change ship's position over a small time interval */
 function stepShip(ship, dtau) {
     addAssign(ship.pos, dot_0_i(dtau, ship.vel));  // x += dx/dtau*dtau
     addAssign(ship.vel, dot_0_i(dtau, ship.acc));  // v += dv/dtau*dtau
-
-    // v = - dxy/dtau / dt/dtau = - dxy/dt
-    let v = dot_0_i(-1/ship.vel[0], ship.vel.slice(1, 3));
-    let Linv = lorentz(v);
+    let Linv = lorentz(dot_0_i(-1, threeVelocity(ship.vel)));
     ship.acc = dot_ij_j(Linv, ship.ownAcc);
 
     // Adjust 4-velocity so that |u| = -1 (this a numeric correction)
@@ -330,6 +358,7 @@ function drawStars(stars) {
 function drawShip(ship) {
     setClock(ship.analogClock, ship.ownTime);
     setClock(ship.digitalClock, ship.ownTime);
+    updateDashboard(ship);
     setAngle(ship.widget, attAngle(ship.att));
 }
 
@@ -380,6 +409,10 @@ function init() {
         stars: stars,
         ship: {
             widget: ship,
+            dashboard: {
+                acc: document.querySelectorAll(".db-acc"),
+                speed: document.querySelectorAll(".db-speed"),
+            },
             analogClock: document.getElementById("analog-clock"),
             digitalClock: document.getElementById("digital-clock"),
             ownTime: 0,          // Proper time

@@ -40,7 +40,7 @@
   - [X] FPS counter on sidebar
   - [X] Proper time ticks with computer clock
 * TODO Physics Engine
-  - [-] Fixed acceleration schedule
+  - [X] Fixed acceleration schedule
     - [X] Set some acceleration wrt proper time
     - [X] Ship worldline in planetary IRF
     - [X] Ensure |u| = -1 (for numerical stability)
@@ -50,7 +50,9 @@
     - [X] Animate ship motion in ship's RF
       - [X] Stars' positions
       - [X] Stars' clocks
-    - [ ] Stats (acceleration, velocity, etc.)
+    - [X] Stats
+      - [X] Proper Acceleration
+      - [X] Speed
     - [X] 3-acceleration as a function of 1-acceleration and ship's direction
   - [ ] Relativistic doppler effect (adjusted for visibility)
 * TODO Routes
