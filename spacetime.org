@@ -56,14 +56,14 @@
     - [X] 3-acceleration as a function of 1-acceleration and ship's direction
 * TODO Routes
   - Constraints:
-    - predefined routes between stars
-    - rotate the ship at start
-    - rotate the ship just before deceleration
-    - smooth acceleration (bounded jerk)
-  - [ ] How to represent preplanned routes?
-  - [ ] Precompute all 6 possible routes
+    - predefined acceleration and deceleration schedules
+  - [ ] Minimally viable code for route planning
+  - [ ] Rotate the ship at start
+  - [ ] Rotate the ship just before deceleration
+  - [ ] Adjust fixed parameters (acc., dec. distances; top speed)
+  - [ ] Full stop hack (come to a stop no matter what)
+  - [ ] Smooth acceleration and deceleration (bounded jerk)
   - [ ] Click to select (plus visual feedback)
-  - [ ] Adjust for the numeric drift
 * TODO Hosting
   - [X] Register twinparadox.org
   - [ ] SSL certificate
