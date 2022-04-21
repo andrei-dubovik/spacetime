@@ -63,7 +63,7 @@
   - [ ] Adjust fixed parameters (acc., dec. distances; top speed)
   - [ ] Full stop hack (come to a stop no matter what)
   - [ ] Smooth acceleration and deceleration (bounded jerk)
-  - [ ] Click to select (plus visual feedback)
+  - [X] Click to select (plus visual feedback)
 * TODO Hosting
   - [X] Register twinparadox.org
   - [ ] SSL certificate

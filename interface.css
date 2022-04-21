@@ -131,6 +131,14 @@ a {
     vector-effect: non-scaling-stroke;
 }
 
+.focus {
+    fill: none;
+    stroke: #304459;
+    stroke-width: 9;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.0;
+}
+
 @media (max-width: 650px), (max-height: 650px) {
     .widget {
         transform: scale(1.2);

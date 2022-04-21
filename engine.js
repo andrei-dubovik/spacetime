@@ -377,6 +377,21 @@ function initAtt(svg) {
 }
 
 
+/** A handler for a mousedown event on a star */
+function mousedownStar(star, state) {
+    if (state.ship.status == "freefall") {
+        let x = star.pos;
+        let y = state.ship.pos;
+        // Don't allow current star as a destination
+        if ((x[1] - y[1])**2 + (x[2] - y[2])**2 > 9) {
+            let focus = star.widget.querySelector(".focus");
+            focus.style.opacity = "1";
+            setTimeout(() => focus.style.opacity = "0", 80);
+        }
+    }
+}
+
+
 /** Initialize the simulation */
 function init() {
     let ship = document.getElementById("ship");
@@ -413,6 +428,15 @@ function init() {
             att: att,            // attitude vector
         },
     };
+
+    // Add event listeners to stars
+    for (let star of stars) {
+        star.widget.querySelector("use").addEventListener(
+            "mousedown",
+            event => mousedownStar(star, state),
+        );
+    }
+
     window.requestAnimationFrame(t => drawFrame(t, 0, state));
 }
 
