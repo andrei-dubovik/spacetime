@@ -271,32 +271,12 @@ function dProperTime(timestamp, previousTimestamp) {
 }
 
 
-/** Get 1-acceleration from a predefined schedule (dev only) */
-function scheduledAcc(properTime) {
-    if (properTime <= 5) {
-        return 0;
-    } else if (properTime <= 10) {
-        return 0.2;
-    } else if (properTime <= 30) {
-        return 0;
-    } else if (properTime <= 35) {
-        return 0.2;
-    } else {
-        return 0;
-    }
-}
-
-
-/** Get attitude from a predefined schedule (dev only) */
-function scheduledAtt(properTime) {
-    if (properTime <= 29) {
-        return [0, -1];
-    } else if (properTime <= 30) {
-        let angle = (1 - Math.cos((properTime - 29)*Math.PI))/2*Math.PI;
-        return rotateAtt([0, -1], angle);
-    } else {
-        return [0, 1];
-    }
+/** Keep ship in free fall (no acceleration) */
+function prepareFreefall(att) {
+    return properTimer => [
+        0,    // 1-acceleration
+        att,  // constant attitude
+    ]
 }
 
 
@@ -373,9 +353,9 @@ function drawFrame(timestamp, previousTimestamp, state) {
     updateFPS(state);
     let dtau = dProperTime(timestamp, previousTimestamp);
     state.ship.ownTime += dtau;
-    let acc = scheduledAcc(state.ship.ownTime);
-    state.ship.att = scheduledAtt(state.ship.ownTime);
-    state.ship.ownAcc = composeAcc(acc, state.ship.att);
+    let [acc, att] = state.ship.program(state.ship.ownTime);
+    state.ship.att = att;
+    state.ship.ownAcc = composeAcc(acc, att);
     stepShip(state.ship, dtau);
     drawShip(state.ship);
     drawStars(currentStarPos(state.ship, state.stars));
@@ -400,6 +380,7 @@ function initAtt(svg) {
 /** Initialize the simulation */
 function init() {
     let ship = document.getElementById("ship");
+    let att = initAtt(ship);
     let stars = [];
     for (let star of document.querySelectorAll(".star")) {
         stars.push({
@@ -413,6 +394,8 @@ function init() {
         timer: Math.floor(Date.now()/1000),
         stars: stars,
         ship: {
+            status: "freefall",
+            program: prepareFreefall(att),
             widget: ship,
             dashboard: {
                 time: [
@@ -427,7 +410,7 @@ function init() {
             vel: [1, 0, 0],      // 4-velocity, stars' IRF
             acc: [0, 0, 0],      // 4-acceleration, stars' IRF
             ownAcc: [0, 0, 0],   // 4-acceleration, ship's non-rotated IRF
-            att: initAtt(ship),  // attitude vector
+            att: att,            // attitude vector
         },
     };
     window.requestAnimationFrame(t => drawFrame(t, 0, state));
