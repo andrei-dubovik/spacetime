@@ -335,7 +335,7 @@ function drawStars(stars) {
 /** Update ship's dashboard and ship's orientation */
 function drawShip(ship) {
     updateDashboard(ship);
-    setAngle(ship.widget, attAngle(ship.att));
+    setAngle(ship.widget, attAngle(ship.att) + 0.1);
 }
 
 
