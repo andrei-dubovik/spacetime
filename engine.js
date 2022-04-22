@@ -271,15 +271,6 @@ function dProperTime(timestamp, previousTimestamp) {
 }
 
 
-/** Keep ship in free fall (no acceleration) */
-function prepareFreefall(att) {
-    return properTimer => [
-        0,    // 1-acceleration
-        att,  // constant attitude
-    ]
-}
-
-
 /** Compose 4-acceleration from 1-acceleration and an attitude vector */
 function composeAcc(acc, att) {
     return [0, acc*att[0], acc*att[1]];
@@ -363,6 +354,42 @@ function drawFrame(timestamp, previousTimestamp, state) {
 }
 
 
+/** A program with no acceleration and no rotation */
+function freefallProgram(att, duration = Infinity) {
+    return t => t < duration ? [0, att] : null;
+}
+
+
+/** A rotation program with a fixed maximum jerk */
+function rotateProgram(att, angle) {
+    let T = Math.abs(angle/Math.PI)**(1/3);
+    let a = 2*Math.PI/T;
+    let b = angle/(2*Math.PI);
+    return t => t < T ? [0, rotateAtt(att, b*(a*t - Math.sin(a*t)))] : null;
+}
+
+
+/** A program consisting of a sequence of subprograms */
+function compositeProgram(programs) {
+    let k = 0;
+    let t0 = null;
+    return t => {
+        if (t0 === null) {
+            t0 = t;
+        }
+        while (k < programs.length) {
+            let r = programs[k](t - t0);
+            if (r !== null) {
+                return r;
+            }
+            t0 = t;
+            k++;
+        }
+        return null;
+    }
+}
+
+
 /** Get initial position of an SVG element */
 function initPos(svg) {
     let m = svg.transform.baseVal.consolidate().matrix;
@@ -410,7 +437,7 @@ function init() {
         stars: stars,
         ship: {
             status: "freefall",
-            program: prepareFreefall(att),
+            program: freefallProgram(att),
             widget: ship,
             dashboard: {
                 time: [
