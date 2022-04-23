@@ -57,11 +57,11 @@
 * TODO Routes
   - Constraints:
     - predefined acceleration and deceleration schedules
-  - [ ] Minimally viable code for route planning
-  - [ ] Rotate the ship at start
-  - [ ] Rotate the ship just before deceleration
+  - [X] Minimally viable code for route planning
+  - [X] Rotate the ship at start
+  - [X] Rotate the ship just before deceleration
   - [ ] Adjust fixed parameters (acc., dec. distances; top speed)
-  - [ ] Full stop hack (come to a stop no matter what)
+  - [X] Full stop hack (come to a stop no matter what)
   - [ ] Smooth acceleration and deceleration (bounded jerk)
   - [X] Click to select (plus visual feedback)
 * TODO Hosting

@@ -172,7 +172,13 @@ function rotateAtt(att, angle) {
 
 /** Compute the angle of an attitude vector */
 function attAngle(att) {
-    return Math.atan2(att[1], att[0])*180/Math.PI;
+    return Math.atan2(att[1], att[0]);
+}
+
+
+/** Compute the smallest angle between two attitude vectors */
+function subAtt(a, b) {
+    return attAngle([a[0]*b[0] + a[1]*b[1], a[1]*b[0] - a[0]*b[1]]);
 }
 
 
@@ -335,7 +341,7 @@ function drawStars(stars) {
 /** Update ship's dashboard and ship's orientation */
 function drawShip(ship) {
     updateDashboard(ship);
-    setAngle(ship.widget, attAngle(ship.att) + 0.1);
+    setAngle(ship.widget, attAngle(ship.att)*180/Math.PI + 0.1);
 }
 
 
@@ -369,6 +375,12 @@ function rotateProgram(att, angle) {
 }
 
 
+/** A program that accelerates for a fixed amount of proper time */
+function accelerateProgram(att) {
+    return t => t < 5 ? [0.2, att] : null;
+}
+
+
 /** A program consisting of a sequence of subprograms */
 function compositeProgram(programs) {
     let k = 0;
@@ -387,6 +399,38 @@ function compositeProgram(programs) {
         }
         return null;
     }
+}
+
+
+/** Plan a route to the selected star */
+function planRoute(star, state) {
+    let d2 = 2.7055;     // Acceleration distance (stars' IRF)
+    let d5 = 2.7645;     // Deceleration distance (stars' IRF)
+    let maxv = 0.76159;  // Maximum speed
+    let t4 = 1;          // Rotation time (proper clock)
+    let org = state.ship.pos;
+    let dst = star.pos;
+    let x = [dst[1] - org[1], dst[2] - org[2]];
+    let d = Math.hypot(x[0], x[1]);
+    let att0 = state.ship.att;
+    let att1 = dot_0_i(1/d, x);
+    let att4 = rotateAtt(att1, Math.PI);
+    let t3 = (d - d2 - d5)/maxv*Math.sqrt(1 - maxv**2) - t4;
+    state.ship.status = "enroute";
+    state.ship.program = compositeProgram([
+        rotateProgram(att0, subAtt(att1, att0)),  // 1
+        accelerateProgram(att1),                  // 2
+        freefallProgram(att1, t3),                // 3
+        rotateProgram(att1, Math.PI),             // 4
+        accelerateProgram(att4),                  // 5
+        t => {
+            state.ship.status = "freefall";
+            state.ship.vel = [1, 0, 0];  // Enforce a complete stop
+            state.ship.acc = [0, 0, 0];
+            return null;
+        },
+        freefallProgram(att4),
+    ]);
 }
 
 
@@ -414,6 +458,7 @@ function mousedownStar(star, state) {
             let focus = star.widget.querySelector(".focus");
             focus.style.opacity = "1";
             setTimeout(() => focus.style.opacity = "0", 80);
+            planRoute(star, state);
         }
     }
 }
