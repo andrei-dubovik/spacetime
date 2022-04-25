@@ -69,7 +69,7 @@
   - [ ] SSL certificate
   - [ ] Configure Apache ("coming soon")
 * TODO Miscellaneous
-  - [ ] README.md for github
+  - [X] README.md for github
   - [ ] Make github repository public
   - [X] Add favicon (ship at 45 deg, say)
 * Questions
