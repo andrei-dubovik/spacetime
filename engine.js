@@ -377,7 +377,7 @@ function rotateProgram(att, angle) {
 
 /** A program that accelerates for a fixed amount of proper time */
 function accelerateProgram(att) {
-    return t => t < 5 ? [0.2, att] : null;
+    return t => t < 5 ? [0.4*Math.sin(t/5*Math.PI), att] : null;
 }
 
 
@@ -417,10 +417,10 @@ function debugProgram(ship) {
 
 /** Plan a route to the selected star */
 function planRoute(star, state) {
-    let d2 = 2.7055;     // Acceleration distance (stars' IRF)
-    let d5 = 2.7645;     // Deceleration distance (stars' IRF)
-    let maxv = 0.76159;  // Maximum speed
-    let t4 = 1;          // Rotation time (proper clock)
+    let d2 = 3.72832;     // Acceleration distance (stars' IRF)
+    let d5 = 3.81094;     // Deceleration distance (stars' IRF)
+    let maxv = 0.854666;  // Maximum speed
+    let t4 = 1;           // Rotation time (proper clock)
     let org = state.ship.pos;
     let dst = star.pos;
     let x = [dst[1] - org[1], dst[2] - org[2]];
