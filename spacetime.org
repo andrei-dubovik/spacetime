@@ -79,7 +79,7 @@
     ship. The ship from the co-op player must be shown where it was,
     because it has an uncertain itinerary. So, what choice for the
     planets?
-* Possible Extensions
+* Possible Extensions & Improvements
   - [ ] Co-op Play (via WebRTC, interface time = planetary time)
   - [ ] Fastest route plotting
   - [ ] Anti-matter and matter have to be carried and contribute to mass
@@ -91,6 +91,8 @@
   - [ ] "As seen" mode as opposed to "as is" mode
     - [ ] Show the stars where they seem to be given the signal received from them
     - [ ] Relativistic doppler effect (adjusted for visibility)
-
+  - [ ] Compute routes as solutions to optimal control (say, fastest travel given maximum jerk and speed)
+  - [ ] Auto-adjust constants (acc. & dec. times, max speed)
+    - This is non-trivial because deceleration is not self adjusting
 * DONE Issues
   - [X] Motion is jumpy in Firefox, smooth in Chromium, Edge and Safari
