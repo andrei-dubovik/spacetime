@@ -402,6 +402,19 @@ function compositeProgram(programs) {
 }
 
 
+/** A program that reports ship's progress (debugging) */
+function debugProgram(ship) {
+    let x = ship.pos;
+    return t => {
+        let v = [ship.pos[1] - x[1], ship.pos[2] - x[2]];
+        x = [...ship.pos];
+        console.log("Distance travelled: " + Math.hypot(...v));
+        console.log("Speed: " + Math.hypot(...threeVelocity(ship.vel)));
+        return null;
+    }
+}
+
+
 /** Plan a route to the selected star */
 function planRoute(star, state) {
     let d2 = 2.7055;     // Acceleration distance (stars' IRF)
