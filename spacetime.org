@@ -71,8 +71,7 @@
 * TODO Miscellaneous
   - [ ] README.md for github
   - [ ] Make github repository public
-  - [ ] Add favicon (ship at 45 deg, say)
-  - [ ] Start hint ("Click on a star to fly there")
+  - [X] Add favicon (ship at 45 deg, say)
 * Questions
   - Planets can be shown where they are now (presumably), or where
     they were when the light started its journey from them towards the

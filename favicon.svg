@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 16 16">
+  <path
+     d="M 4.0631508,9.8511652 3.1941212,12.80584 l 2.9546983,-0.869022"
+     fill="none"
+     stroke="#3d5166"
+     stroke-width="1"
+     stroke-linejoin="bevel"
+     shape-rendering="geometricPrecision" />
+  <path
+     d="M 8.4171967,3.4043787 Q 19.646808,-3.6467169 12.595657,7.5828059 l -3.3949983,3.3949721 -0.783462,4.43958 Q 5.805659,10.194322 0.58258341,7.5828059 L 5.0221983,6.7993503 Z"
+     fill="none"
+     stroke="#3d5166"
+     stroke-width="1"
+     stroke-linejoin="bevel"
+     shape-rendering="geometricPrecision" />
+</svg>
